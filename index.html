@@ -9,59 +9,34 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* সব লিঙ্কের আন্ডারলাইন সরবে */
-                a {
-                 text-decoration: none; transition: 0.3s; /* মসৃণ পরিবর্তনের জন্য */
-                  }
+        a {
+            text-decoration: none; transition: 0.3s;
+        }
 
-        /* মাউস কার্সর লিঙ্কের ওপর নিলে আন্ডারলাইন দেখা যাবে
-                a:hover {
-                 text-decoration: underline;
-                        }
-        */
-
-
-/* --- PROFILE PHOTO --- */
-.profile-photo-wrap {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-.profile-photo {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 3px solid var(--accent);
-    box-shadow: 0 0 25px rgba(0, 212, 255, 0.4), 0 0 60px rgba(0, 212, 255, 0.15);
-    object-fit: cover;
-    display: block;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.profile-photo:hover {
-    transform: scale(1.06);
-    box-shadow: 0 0 40px rgba(0, 212, 255, 0.65), 0 0 80px rgba(0, 212, 255, 0.2);
-}
-
-
-
-
-
-
+        /* --- PROFILE PHOTO --- */
+        .profile-photo-wrap {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .profile-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.4), 0 0 60px rgba(0, 212, 255, 0.15);
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .profile-photo:hover {
+            transform: scale(1.06);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.65), 0 0 80px rgba(0, 212, 255, 0.2);
+        }
 
         /* --- DYNAMIC THEME VARIABLES --- */
         :root {
-            /* DARK MODE: Black to Deep Blue Mid */
-            --main-bg: linear-gradient(180deg, #020617 0%, #030816 40%, #0c1a33 100%);
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --card-border: rgba(0, 212, 255, 0.15);
-            --text-main: #ffffff;
-            --text-muted: #94a3b8;
-            --accent: #00d4ff;
-            --nav-bg: rgba(2, 6, 23, 0.85);
-        }
-
-        [data-theme="light"] {
-            /* LIGHT MODE: Ocean Blue to White */
+            /* DEFAULT: LIGHT MODE — Ocean Blue to White */
             --main-bg: linear-gradient(180deg, #0ea5e9 0%, #bae6fd 50%, #ffffff 100%);
             --card-bg: rgba(255, 255, 255, 0.5);
             --card-border: rgba(14, 165, 233, 0.25);
@@ -69,6 +44,17 @@
             --text-muted: #334155;
             --accent: #0284c7;
             --nav-bg: rgba(14, 165, 233, 0.85);
+        }
+
+        [data-theme="dark"] {
+            /* DARK MODE: Black to Deep Blue */
+            --main-bg: linear-gradient(180deg, #020617 0%, #030816 40%, #0c1a33 100%);
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(0, 212, 255, 0.15);
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --accent: #00d4ff;
+            --nav-bg: rgba(2, 6, 23, 0.85);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -86,10 +72,10 @@
         /* --- SMART NAVBAR --- */
         .navbar {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 0 8%; height: 65px; background: var(--nav-bg);
-            backdrop-filter: blur(15px); position: fixed; width: 100%; top: 0;
+            padding: 0 8%; height: 50px; background: var(--nav-bg);
+            backdrop-filter: blur(10px); position: fixed; width: 100%; top: 0;
             z-index: 1000; border-bottom: 1px solid var(--card-border);
-            transition: top 0.4s ease;
+            transition: top 0.1s ease;
         }
         .navbar-hidden { top: -80px; }
         .logo { font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; }
@@ -137,9 +123,9 @@
         .card:hover {
             transform: translateY(-5px); border-color: var(--accent);
             box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.8);
         }
-        [data-theme="light"] .card:hover { background: rgba(255, 255, 255, 0.8); }
+        [data-theme="dark"] .card:hover { background: rgba(255, 255, 255, 0.05); }
 
         .card i { font-size: 1.5rem; color: var(--accent); margin-bottom: 12px; }
         .card h3 { font-size: 1.05rem; margin-bottom: 8px; font-weight: 600; }
@@ -153,11 +139,11 @@
         }
         .btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
 
-        /* --- GORGEOUS FOOTER --- */
+        /* --- FOOTER --- */
         footer { margin-top: 50px; padding: 60px 0; text-align: center; }
         .footer-card {
             background: var(--card-bg); border: 1px solid var(--card-border);
-            display: inline-block; padding: 35px 50px; border-radius: 25px;
+            display: inline-block; padding: 20px 20px; border-radius: 25px;
             backdrop-filter: blur(15px); transition: 0.3s;
         }
         .footer-card:hover { border-color: var(--accent); box-shadow: 0 0 30px var(--card-border); }
@@ -166,7 +152,7 @@
         
         .socials { display: flex; gap: 12px; justify-content: center; margin: 15px 0; }
         .socials a {
-            width: 40px; height: 40px; background: var(--card-border);
+            width: 30px; height: 30px; background: var(--card-border);
             display: flex; align-items: center; justify-content: center;
             border-radius: 50%; transition: 0.3s; color: var(--text-main);
         }
@@ -188,27 +174,17 @@
     </nav>
 
     <header class="hero">
-
-
-<!-- Round Profile Photo -->
-<div class="profile-photo-wrap">
-    <img 
-        src="Image.jpeg" 
-        alt="Munan's Profile Photo" 
-        class="profile-photo"
-    >
-
-
-
-</div>
+        <div class="profile-photo-wrap">
+            <img src="Image.jpeg" alt="Munan's Profile Photo" class="profile-photo">
+        </div>
 
         <h1>Knowledge & Creation Zone</h1>
         <p>Exploring the boundaries of Tech</p>
         
         <div class="intro-box">
             <p>
-                Hi, I’m <strong>Munan</strong>. I'm a developer and thinker from Bangladesh. 
-                 I love solving problems through code and learning something new every day.
+                Hi, I'm <strong>Munan</strong>. I'm a developer and thinker from Bangladesh. 
+                I love solving problems through code and learning something new every day.
             </p>
         </div>
     </header>
@@ -219,43 +195,40 @@
 
     <section class="container">
         <div class="grid" id="linkGrid">
+
             
-            
-
-
-            <div class="card">
-                <i class="fas fa-keyboard"></i>
-                <h2>TypeMaster</h2>
-                <p>Level up your productivity with TypeMaster by Abdullah All Munan. 
-                    It tracks your WPM, accuracy in real-time
-                    and session history, you'll see your progress instantly.
-                    </p>
-                <a href="TypeMaster.html" class="btn" style="text-decoration: none;" >Be Master</a>
-            </div>
-
-
-
-            <div class="card">
-                <i class="fas fa-globe"></i>
-                <h3>Link Hub</h3>
-                <p> My personal amd premium link hub</p>
-                <a href="part1.html" class="btn">View</a>
-            </div>
-
-            <div class="card">
-                <i class="fas fa-envelope"></i>
-                <h3>Get in Touch</h3>
-                <p>Have question or want to connect? Send a message and i'll reply soon!.</p>
-                <a href="contact.html" class="btn">Message</a>
-            </div>
-
-
             <div class="card">
                 <i class="fas fa-tools"></i>
                 <h3>My Toolbox</h3>
                 <p>A list of software, extensions, and hardware I use every day.</p>
                 <a href="tools.html" class="btn">Check Tools</a>
             </div>
+
+
+
+            <div class="card">
+                <i class="fas fa-keyboard"></i>
+                <h3>TypeMaster</h3>
+                <p>Level up your productivity with TypeMaster by Abdullah All Munan. 
+                    It tracks your WPM, accuracy in real-time
+                    and session history, you'll see your progress instantly.</p>
+                <a href="TypeMaster.html" class="btn">Be Master</a>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-globe"></i>
+                <h3>Link Hub</h3>
+                <p>My personal and premium link hub.</p>
+                <a href="part1.html" class="btn">View</a>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-envelope"></i>
+                <h3>Get in Touch</h3>
+                <p>Have a question or want to connect? Send a message and I'll reply soon!</p>
+                <a href="contact.html" class="btn">Message</a>
+            </div>
+
 
             <div class="card">
                 <i class="fab fa-github"></i>
@@ -264,61 +237,16 @@
                 <a href="https://github.com/munan07" class="btn">Follow GitHub</a>
             </div>
 
-            <div class="card">
-                    <i class="fas fa-palette"></i>
-                    <h3>Canva</h3>
-                    <p>Easy-to-use design platform for stunning visuals and presentations.</p>
-                    <a href="https://www.canva.com" class="btn">Visit Site </a> 
-            </div>
-
-            <div class="card">
-                <i class="fas fa-cloud"></i>
-                <h3>Cloud Skills</h3>
-                <p>Projects deployed using AWS, Firebase, and Netlify services.</p>
-                <a href="https://facebook.com" class="btn">See Deploys</a>
-            </div>
-
-            <div class="card">
-                <i class="fas fa-terminal"></i>
-                <h3>CLI Utilities</h3>
-                <p>Automation scripts I built to speed up my local workflow.</p>
-                <a href="https://facebook.com" class="btn">Get Scripts</a>
-            </div>
-
-            <div class="card">
-                <i class="fas fa-video"></i>
-                <h3>Video Tutorials</h3>
-                <p>Teaching complex coding concepts in simple Bangla language.</p>
-                <a href="https://facebook.com" class="btn">Watch YouTube</a>
-            </div>
-
-            <div class="card">
-                <i class="fas fa-brain"></i>
-                <h3>AI Prompts</h3>
-                <p>A collection of high-quality prompts for ChatGPT and Midjourney.</p>
-                <a href="https://facebook.com" class="btn">Get Prompts</a>
-            </div>
-
+            
             <div class="card">
                 <i class="fas fa-palette"></i>
-                <h3>UI Designs</h3>
-                <p>Figma files and design systems I've created for web apps.</p>
-                <a href="https://facebook.com" class="btn">See Design</a>
+                <h3>Canva</h3>
+                <p>Easy-to-use design platform for stunning visuals and presentations.</p>
+                <a href="https://www.canva.com" class="btn">Visit Site</a>
             </div>
 
-            <div class="card">
-                <i class="fas fa-map-signs"></i>
-                <h3>Roadmap</h3>
-                <p>My future plans for learning new technologies in 2026.</p>
-                <a href="https://facebook.com" class="btn">View Path</a>
-            </div>
+           
 
-            <div class="card">
-                <i class="fab fa-facebook"></i>
-                <h3>Social Media</h3>
-                <p>Connect with me on Facebook for daily updates and news.</p>
-                <a href="https://facebook.com" class="btn">Connect</a>
-            </div>
 
             <div class="card">
                 <i class="fas fa-envelope"></i>
@@ -326,6 +254,7 @@
                 <p>Available for collaborations or project consultations.</p>
                 <a href="mailto:allmunanabdullah@gmail.com" class="btn">Send Email</a>
             </div>
+
             <div class="card">
                 <i class="fas fa-rocket"></i>
                 <h3>Personal Portfolio</h3>
@@ -356,16 +285,16 @@
     </footer>
 
     <script>
-        // 1. Theme Toggle Logic
+        // 1. Theme Toggle — default: light, click → dark
         const themeBtn = document.getElementById('themeBtn');
         const icon = themeBtn.querySelector('i');
-        
+
         themeBtn.onclick = () => {
-            if(document.body.getAttribute('data-theme') === 'light') {
+            if (document.body.getAttribute('data-theme') === 'dark') {
                 document.body.removeAttribute('data-theme');
                 icon.className = 'fas fa-moon';
             } else {
-                document.body.setAttribute('data-theme', 'light');
+                document.body.setAttribute('data-theme', 'dark');
                 icon.className = 'fas fa-sun';
             }
         };
@@ -382,7 +311,7 @@
             lastScroll = window.scrollY;
         };
 
-        // 3. Search Filter Logic
+        // 3. Search Filter
         document.getElementById('search').onkeyup = function() {
             let val = this.value.toLowerCase();
             document.querySelectorAll('.card').forEach(card => {
@@ -392,6 +321,4 @@
         };
     </script>
 </body>
-
 </html>
-
