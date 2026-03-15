@@ -3,164 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Form</title>
+    <title>Contact — Munan</title>
+    <link rel="icon" type="image/png" href="icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --bg:         linear-gradient(180deg, #0ea5e9 0%, #bae6fd 50%, #f0f9ff 100%);
+            --surface:    rgba(255,255,255,0.65);
+            --border:     rgba(14,165,233,0.25);
+            --border-acc: rgba(2,132,199,0.5);
+            --text:       #0f172a;
+            --text-muted: #334155;
+            --text-soft:  #64748b;
+            --accent:     #0284c7;
+            --accent2:    #0ea5e9;
+            --nav-bg:     rgba(14,165,233,0.85);
+            --radius:     16px;
+            --trans:      0.3s cubic-bezier(.4,0,.2,1);
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #42b1f1 0%, #f6f8f8 100%);
+            background: var(--bg);
+            background-attachment: fixed;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text);
             min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            padding: 20px;
+            padding: 80px 20px 60px;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .form-container {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 500px;
-            width: 100%;
+        a { text-decoration: none; transition: var(--trans); }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 8%; height: 50px; background: var(--nav-bg);
+            backdrop-filter: blur(10px); position: fixed; width: 100%; top: 0;
+            z-index: 1000; border-bottom: 1px solid var(--border);
+            transition: top 0.3s ease;
+        }
+        .navbar-hidden { top: -60px; }
+        .logo { font-size: 1.1rem; font-weight: 700; letter-spacing: 1px; color: #0f172a; }
+        .logo span { color: #fff; }
+        .back-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(255,255,255,.55); border: 1px solid rgba(255,255,255,.6);
+            border-radius: 20px; padding: 6px 16px;
+            font-size: .8rem; font-weight: 600; color: #0f172a;
+            backdrop-filter: blur(8px); transition: var(--trans);
+        }
+        .back-btn:hover { background: rgba(255,255,255,.85); }
+
+        /* --- PAGE WRAPPER --- */
+        .page {
+            width: 100%; max-width: 560px;
+            display: flex; flex-direction: column; gap: 0;
+            animation: fadeUp .65s ease both;
         }
 
-        .form-container h2 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 28px;
-            text-align: center;
+        /* --- TOP BADGE --- */
+        .top-badge {
+            text-align: center; margin-bottom: 28px;
+        }
+        .badge-pill {
+            display: inline-flex; align-items: center; gap: 7px;
+            background: rgba(255,255,255,.6); border: 1px solid var(--border);
+            border-radius: 50px; padding: 6px 18px;
+            font-size: .72rem; font-weight: 700; letter-spacing: .07em;
+            text-transform: uppercase; color: var(--accent);
+            backdrop-filter: blur(8px); margin-bottom: 16px;
+        }
+        .page-title {
+            font-size: 2.2rem; font-weight: 800;
+            letter-spacing: -.03em; color: var(--text);
+            line-height: 1.1; margin-bottom: 10px;
+        }
+        .page-title span { color: var(--accent); }
+        .page-sub {
+            font-size: .9rem; color: var(--text-soft); font-weight: 300;
         }
 
-        .form-container p {
-            color: #666;
-            margin-bottom: 30px;
-            text-align: center;
-            font-size: 14px;
+        /* --- FORM CARD --- */
+        .form-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: 36px 38px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 8px 40px rgba(2,132,199,.1), inset 0 1px 0 rgba(255,255,255,.8);
         }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+        /* --- FORM GROUPS --- */
+        .form-group { margin-bottom: 20px; }
 
         .form-group label {
-            display: block;
-            color: #333;
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 14px;
+            display: flex; align-items: center; gap: 7px;
+            font-size: .78rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: .06em;
+            color: var(--text-muted); margin-bottom: 8px;
         }
+        .form-group label i { color: var(--accent); font-size: .8rem; }
 
         .form-group input,
         .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
+            width: 100%; padding: 13px 16px;
+            background: rgba(255,255,255,.7);
+            border: 1.5px solid var(--border);
             border-radius: 10px;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            font-family: inherit;
+            font-size: .9rem; font-family: 'Poppins', sans-serif;
+            color: var(--text); outline: none;
+            transition: border-color var(--trans), box-shadow var(--trans), background var(--trans);
         }
+        .form-group input::placeholder,
+        .form-group textarea::placeholder { color: #94a3b8; }
 
         .form-group input:focus,
         .form-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: var(--accent);
+            background: rgba(255,255,255,.95);
+            box-shadow: 0 0 0 4px rgba(2,132,199,.12);
         }
 
         .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
+            resize: vertical; min-height: 130px; line-height: 1.6;
         }
 
+        .required { color: #ef4444; margin-left: 2px; }
+
+        /* --- INPUT ROW --- */
+        .input-row {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+        }
+
+        /* --- SUBMIT --- */
         .submit-btn {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            width: 100%; padding: 14px;
+            background: linear-gradient(135deg, #0284c7, #0ea5e9);
+            color: #fff; border: none; border-radius: 12px;
+            font-size: .95rem; font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer; letter-spacing: .02em;
+            transition: var(--trans);
+            box-shadow: 0 4px 18px rgba(2,132,199,.35);
+            display: flex; align-items: center; justify-content: center; gap: 9px;
         }
-
         .submit-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 8px 28px rgba(2,132,199,.45);
+        }
+        .submit-btn:active { transform: translateY(0); }
+
+        /* --- INFO STRIP --- */
+        .info-strip {
+            display: flex; justify-content: center; gap: 10px;
+            flex-wrap: wrap; margin-top: 20px;
+        }
+        .info-chip {
+            display: inline-flex; align-items: center; gap: 7px;
+            background: rgba(255,255,255,.55); border: 1px solid var(--border);
+            border-radius: 20px; padding: 7px 14px;
+            font-size: .78rem; font-weight: 600; color: var(--accent);
+            backdrop-filter: blur(8px); transition: var(--trans);
+        }
+        .info-chip:hover {
+            background: var(--accent); color: #fff; border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        .info-chip i { font-size: .75rem; }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center; margin-top: 36px;
+            font-size: .75rem; color: var(--text-soft);
+            letter-spacing: .06em; text-transform: uppercase;
         }
 
-        .submit-btn:active {
-            transform: translateY(0);
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
-        .required {
-            color: #e74c3c;
-        }
-
-        @media (max-width: 600px) {
-            .form-container {
-                padding: 30px 20px;
-            }
-            
-            .form-container h2 {
-                font-size: 24px;
-            }
+        @media (max-width: 560px) {
+            .form-card { padding: 26px 20px; }
+            .input-row { grid-template-columns: 1fr; }
+            .page-title { font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
-    <div class="form-container">
-        <h2>Contact Form</h2>
-        <p>Contact with Abdullah All Munan</p>
-        
-        <!-- 
-            IMPORTANT: "YOUR-EMAIL@example.com" 
-        
-        -->
-        
-        <form action="https://formsubmit.co/bigyanbite@gmail.com" method="POST">
-            
-            <!-- FormSubmit er configuration -->
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_subject" value="New message from website!">
-            <input type="hidden" name="_template" value="table">
-            
-            <!-- Name Field -->
-            <div class="form-group">
-                <label for="name">Name <span class="required">*</span></label>
-                <input type="text" id="name" name="name" placeholder="Write your name" required>
-            </div>
 
-            <!-- Email Field -->
-            <div class="form-group">
-                <label for="email">Email <span></span></label>
-                <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
-            </div>
+    <nav class="navbar" id="navbar">
+        <div class="logo">Munan<span>.hub</span></div>
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Home
+        </a>
+    </nav>
 
-            <!-- Phone Field (Optional) -->
-            <div class="form-group">
-                <label for="phone">Phone Number<span class="required">*</span></label>
-                <input type="tel" id="phone" name="phone" placeholder="+880 1XXX-XXXXXX">
-            </div>
+    <div class="page">
 
-            <!-- Message Field -->
-            <div class="form-group">
-                <label for="message">Message <span class="required">*</span></label>
-                <textarea id="message" name="message" placeholder="Write Your message..." required></textarea>
-            </div>
+        <div class="top-badge">
+            <div class="badge-pill"><i class="fas fa-paper-plane"></i> Get in Touch</div>
+            <div class="page-title">Say <span>Hello</span> 👋</div>
+            <div class="page-sub">Have a question or want to connect? I'll reply as soon as I can.</div>
+        </div>
 
-            <!-- Submit Button -->
-            <button type="submit" class="submit-btn">Send Message</button>
-        </form>
+        <div class="form-card">
+            <form action="https://formsubmit.co/allmunanabdullah@gmail.com" method="POST">
+
+                <!-- FormSubmit config -->
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_subject" value="New message from munan07.github.io!">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_next" value="index.html">
+
+                <div class="input-row">
+                    <div class="form-group">
+                        <label for="name"><i class="fas fa-user"></i> Name <span class="required">*</span></label>
+                        <input type="text" id="name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email"><i class="fas fa-envelope"></i> Email <span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:.72rem;">(optional)</span></label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone"><i class="fas fa-phone"></i> Phone <span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:.72rem;">(optional)</span></label>
+                    <input type="tel" id="phone" name="phone" placeholder="+880 1XXX-XXXXXX">
+                </div>
+
+                <div class="form-group">
+                    <label for="message"><i class="fas fa-comment-dots"></i> Message <span class="required">*</span></label>
+                    <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+
+            </form>
+        </div>
+
+        <div class="info-strip">
+            <a href="mailto:allmunanabdullah@gmail.com" class="info-chip">
+                <i class="fas fa-envelope"></i> allmunanabdullah@gmail.com
+            </a>
+            <a href="https://github.com/abamunan" class="info-chip" target="_blank" rel="noopener">
+                <i class="fab fa-github"></i> abamunan
+            </a>
+        </div>
+
+        <footer>
+            <i class="fas fa-hands-praying" style="margin-right:6px;opacity:.5;"></i>Tawakkul &amp; grind &nbsp;·&nbsp; © 2026 Munan
+        </footer>
+
     </div>
-   
+
+    <script>
+        let lastScroll = window.scrollY;
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > lastScroll && window.scrollY > 70) {
+                nav.classList.add('navbar-hidden');
+            } else {
+                nav.classList.remove('navbar-hidden');
+            }
+            lastScroll = window.scrollY;
+        });
+    </script>
+
 </body>
 </html>
